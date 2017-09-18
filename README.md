@@ -1,7 +1,7 @@
 odroid-gpio
 =======
 
-odroid-gpio is a simple node.js based library to help access the GPIO of the Odoid C1. 
+odroid-gpio is a simple node.js based library to help access the GPIO of the Odroid C1 and Odroid C2.
 
 ```javascript
 var gpio = require("odroid-gpio");
@@ -17,7 +17,9 @@ gpio.open(16, "output", function(err) {		// Open pin 16 for output
 
 You can use the physical numbering:
 
-![Odroid pins](http://cdn.overclock.net/b/b6/b6755fac_ss2014-12-27at05.02.37.png)
+![ODROID-C1 pins](https://wiki.odroid.com/_media/odroid-c1/hardware/c1_j2.png)
+
+![ODROID-C2 pins](https://wiki.odroid.com/_media/odroid-c2/hardware/c2_j2.png)
 
 ## Requirement: gpio-admin
 

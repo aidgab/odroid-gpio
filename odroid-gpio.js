@@ -2,6 +2,47 @@
 
 require('es6-shim');
 
+const PRINT_MAPPING_REF = {
+    "ODROIDC": {
+        "7": 83,
+        "11": 88,
+        "12": 87,
+        "13": 116,
+        "15": 115,
+        "16": 104,
+        "18": 102,
+        "22": 103,
+        "26": 118,
+        "29": 101,
+        "31": 100,
+        "32": 99,
+        "33": 108,
+        "35": 97,
+        "36": 98
+    },
+    "ODROID-C2": {
+        "7": 249,
+        "11": 247,
+        "12": 238,
+        "13": 239,
+        "15": 237,
+        "16": 236,
+        "18": 233,
+        "19": 235,
+        "21": 232,
+        "22": 231,
+        "23": 230,
+        "24": 229,
+        "26": 225,
+        "29": 228,
+        "31": 219,
+        "32": 224,
+        "33": 234,
+        "35": 214,
+        "36": 218
+    }
+};
+
 var fs = require("fs"),
     path = require("path"),
     exec = require("child_process").exec;
@@ -12,27 +53,12 @@ var board = fs.readFileSync("/proc/cpuinfo").toString().split("\n").filter(funct
     return line.indexOf("Hardware") == 0;
 })[0].split(":")[1].trim();
 
-if (board !== 'ODROIDC'){
-    console.log("This board is not an Odroid-C1, problems might occur.");
-}
+var pinMapping = PRINT_MAPPING_REF[board];
 
-var pinMapping = {
-    "7": 83,
-    "11": 88,
-    "12": 87,
-    "13": 116,
-    "15": 115,
-    "16": 104,
-    "18": 102,
-    "22": 103,
-    "26": 118,
-    "29": 101,
-    "31": 100,
-    "32": 99,
-    "33": 108,
-    "35": 97,
-    "36": 98
-};
+if (!pinMapping) {
+    console.log("This board is not an Odroid-C1 or Odroid-C2, problems might occur.");
+    pinMapping = PRINT_MAPPING_REF["ODROIDC"];
+}
 
 function execPromise(str) {
     return new Promise(function (resolve, reject) {
