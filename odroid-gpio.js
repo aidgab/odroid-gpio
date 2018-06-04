@@ -49,9 +49,15 @@ var fs = require("fs"),
 
 var sysFsPath = "/sys/class/gpio";
 
-var board = fs.readFileSync("/proc/cpuinfo").toString().split("\n").filter(function(line) {
-    return line.indexOf("Hardware") == 0;
-})[0].split(":")[1].trim();
+var board = 'unknown';
+try {
+    board = fs.readFileSync("/proc/cpuinfo").toString().split("\n").filter(function(line) {
+        return line.indexOf("Hardware") == 0;
+    })[0].split(":")[1].trim();    
+}
+catch (e){
+    console.error("Couldn't detect the board");
+}
 
 var pinMapping = PRINT_MAPPING_REF[board];
 
